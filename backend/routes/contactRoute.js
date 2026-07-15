@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 
 const contactController = require('../controllers/contactController')
-const authmiddeleware = require('../middleware/authmiddleware')
+const authMiddleware = require('../middleware/authmiddleware')
 
-router.post('/',authmiddeleware,contactController.createContact)
+router.post('/',authMiddleware,contactController.createContact)
 
 module.exports = router
