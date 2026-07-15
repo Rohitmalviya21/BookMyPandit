@@ -1,0 +1,10 @@
+const express = require('express')
+
+const router = express.Router()
+
+const contactController = require('../controllers/contactController')
+const authmiddeleware = require('../middleware/authmiddleware')
+
+router.post('/',authmiddeleware,contactController.createContact)
+
+module.exports = router

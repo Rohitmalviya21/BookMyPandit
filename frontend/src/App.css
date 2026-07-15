@@ -1,0 +1,886 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+*, html, body, button, input, select, textarea {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+/* ==========================================================================
+   1. CORE THEME VARIABLES & BASE STYLES
+   ========================================================================== */
+:root {
+  --primary-orange: #f26522;
+  --primary-hover: #d44d0e;
+  --bg-light: #fffcf7;
+  --bg-cream: #fffaf4;
+  --text-dark: #2d1e18;
+  --text-muted: #6b5a52;
+  --footer-bg: #211611;
+  --border-color: #f1e7dd;
+  --warning-light: #fff8eb;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: clip;
+  background-color: #ffffff;
+  color: var(--text-dark);
+}
+
+/* Custom Sticky Glassmorphism Navbar */
+.sticky-navbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1030 !important;
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 4px 18px rgba(45, 30, 24, 0.04) !important;
+  transition: all 0.3s ease;
+}
+
+/* Ensure sticky navigation bar containers are visible */
+.sticky-navbar .container,
+.sticky-navbar .container-fluid {
+  overflow: visible !important;
+}
+
+/* Fix bootstrap row potential default leakage gaps globally & safely */
+.container, .container-fluid {
+  overflow: hidden;
+}
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+/* ==========================================================================
+   2. GLOBAL UTILITIES & BUTTONS
+   ========================================================================== */
+.text-primary-orange {
+  color: var(--primary-orange) !important;
+}
+
+.font-traditional {
+  font-family: 'Georgia', serif;
+  color: var(--text-dark) !important;
+}
+
+.btn-orange {
+  background-color: var(--primary-orange) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--primary-orange) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.btn-orange:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.btn-outline-orange {
+  color: var(--primary-orange) !important;
+  border: 1px solid var(--primary-orange) !important;
+  background-color: transparent !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.btn-outline-orange:hover {
+  background-color: var(--primary-orange) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   3. NAVBAR COMPONENT
+   ========================================================================== */
+.navbar {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  z-index: 1050;
+  background-color: #ffffff !important;
+}
+
+.navbar-nav .nav-link {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  transition: color 0.25s ease;
+}
+.navbar-nav .nav-link:hover {
+  color: var(--primary-orange) !important;
+}
+
+/* Initial Avatar Hover Micro Ring Glow effect */
+.user-avatar-badge-circle {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(143, 130, 247, 0.3);
+}
+.user-avatar-badge-circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(143, 130, 247, 0.5);
+}
+
+@media (max-width: 991.98px) {
+  .navbar-user-controls-block {
+    width: 100%;
+    justify-content: center;
+    padding-top: 0.5rem;
+  }
+  .navbar-nav { padding-bottom: 1rem; }
+  .navbar-nav .nav-item { width: 100%; }
+  .navbar-nav .bg-light { justify-content: center; margin-bottom: 0.5rem; }
+}
+
+/* ==========================================================================
+   4. HERO SECTION & SEARCH BAR
+   ========================================================================== */
+
+.bg-light-cream {
+  background-color: var(--bg-cream) !important;
+}
+.main-hero-title {
+  color: var(--text-dark);
+  font-family: 'Georgia', serif;
+  font-weight: 800 !important;
+}
+.style-text-para {
+  font-size: 1.1rem !important;
+  color: #5c4d46 !important;
+}
+.feature-badge {
+  box-shadow: 0 4px 15px rgba(45, 30, 24, 0.04);
+  border: 1px solid #f3eae1;
+}
+.hover-orange-badge {
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.hover-orange-badge:hover {
+  border-color: var(--primary-orange) !important;
+  color: var(--primary-orange) !important;
+  background-color: #fff3ed !important;
+}
+.hero-main-img {
+  filter: drop-shadow(0px 15px 30px rgba(242, 101, 34, 0.15));
+  animation: floatAnim 4s ease-in-out infinite;
+}
+@keyframes floatAnim {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Search Bar Input Container */
+.search-bar-container {
+  border: 1px solid #e1d6cc !important;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+}
+.search-bar-container:focus-within {
+  border-color: var(--primary-orange) !important;
+  box-shadow: 0 4px 20px rgba(242, 101, 34, 0.12) !important;
+}
+.search-bar-container input::placeholder {
+  color: #a09188;
+}
+.custom-search-action-btn {
+  background-color: var(--primary-orange) !important;
+  border: none !important;
+  transition: transform 0.2s ease, background-color 0.2s ease !important;
+}
+.custom-search-action-btn:hover {
+  background-color: var(--primary-hover) !important;
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   5. FEATURES SECTION (WHY CHOOSE US)
+   ========================================================================== */
+.custom-feature-card {
+  border-color: #f5ece4 !important;
+  box-shadow: 0 4px 20px rgba(45, 30, 24, 0.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.feature-icon-badge {
+  font-size: 26px;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background-color: #fff6f0;
+  border: 1px dashed rgba(242, 101, 34, 0.2);
+  transition: all 0.3s ease;
+}
+.small-heading-adjust {
+  font-size: 15px !important;
+  letter-spacing: -0.2px;
+}
+.animate-hover-card:hover .custom-feature-card {
+  transform: translateY(-5px);
+  border-color: var(--primary-orange) !important;
+  box-shadow: 0 10px 25px rgba(242, 101, 34, 0.08);
+}
+.animate-hover-card:hover .feature-icon-badge {
+  background-color: var(--primary-orange);
+  color: #ffffff !important;
+  transform: rotateY(180deg);
+}
+
+/* ==========================================================================
+   6. POPULAR POOJAS SECTION
+   ========================================================================== */
+.production-pooja-card {
+  box-shadow: 0 4px 15px rgba(45, 30, 24, 0.05);
+  border: 1px solid #f5ece4 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+.pooja-img-container {
+  width: 100%;
+  height: 145px;
+  overflow: hidden;
+  background-color: #faf7f4;
+}
+.pooja-pro-img {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pooja-card-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 70%, rgba(45, 30, 24, 0.02));
+  pointer-events: none;
+}
+.production-pooja-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-orange) !important;
+  box-shadow: 0 10px 25px rgba(242, 101, 34, 0.08) !important;
+}
+.production-pooja-card:hover .pooja-pro-img {
+  transform: scale(1.05);
+}
+.text-truncate-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 15px !important;
+}
+.text-truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px !important;
+  line-height: 1.4;
+  height: 34px;
+  color: #7a6a61 !important;
+}
+.next-slide-pro-btn:hover {
+  background-color: var(--primary-orange) !important;
+  border-color: var(--primary-orange) !important;
+}
+.next-slide-pro-btn:hover span {
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   7. INDUSTRY STANDARD PANDIT CARDS - HOVER OVERLAP WORKAROUND
+   ========================================================================== */
+.pro-pandit-card {
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(160, 140, 130, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.pro-pandit-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(242, 101, 34, 0.12) !important;
+}
+
+.card-img-wrapper {
+  width: 100%;
+  height: 190px;
+  background-color: #f7f3ee;
+}
+.dynamic-pandit-avatar {
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.5s ease;
+}
+.pro-pandit-card:hover .dynamic-pandit-avatar {
+  transform: scale(1.04);
+}
+
+/* Strict layout block to protect price metrics from clipping */
+.cta-interactive-container {
+  position: relative;
+  width: 100%;
+  height: 54px; 
+  overflow: hidden;
+}
+
+/* Default view with safety padding boundaries */
+.default-pricing-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+/* Hover dynamic view hidden exactly beneath container spacing grid */
+.hover-action-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  transform: translateY(60px); 
+  opacity: 0;
+}
+
+.pro-pandit-card:hover .default-pricing-view {
+  transform: translateY(-60px); 
+  opacity: 0;
+}
+
+.pro-pandit-card:hover .hover-action-view {
+  transform: translateY(0px); 
+  opacity: 1;
+}
+
+.border-top-dash {
+  border-top: 1px dashed #ede2d7 !important;
+}
+.btn-action-arrow {
+  background-color: var(--primary-orange);
+  border: none;
+  transition: all 0.3s ease;
+}
+.pro-pandit-card:hover .btn-action-arrow {
+  background-color: #211611;
+  transform: scale(1.08);
+}
+
+/* Micro Typography Helpers */
+.bg-warning-light { background-color: var(--warning-light); }
+.small-text-11 { font-size: 11px !important; }
+.small-text-12 { font-size: 12.5px !important; color: #766860 !important; }
+.small-text-13 { font-size: 14px !important; }
+.small-text-10 { font-size: 10px !important; }
+.text-dark-50 { color: #52463e !important; }
+.text-muted-dot { color: #d4c4b7; margin: 0 2px; }
+.border-bottom-subtle { border-bottom: 1px solid #f5ebe2 !important; }
+
+/* ==========================================================================
+   8. PREMIUM DARK FOOTER STYLING
+   ========================================================================== */
+.bg-footer-dark {
+  background-color: #211611 !important; 
+}
+.text-muted-footer {
+  color: #a3958d !important; 
+}
+.footer-links-list li a,
+.footer-links-list li .footer-nav-item-link {
+  color: #a3958d;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+.footer-links-list li a:hover,
+.footer-links-list li .footer-nav-item-link:hover {
+  color: #f26522 !important;
+  padding-left: 4px; 
+}
+.footer-social-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(163, 149, 141, 0.3);
+  color: #a3958d;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+.footer-social-badge:hover {
+  background-color: #f26522;
+  border-color: #f26522;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+.border-footer-input {
+  border: 1px solid rgba(163, 149, 141, 0.25) !important;
+}
+.border-footer-input:focus {
+  border-color: #f26522 !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+.border-footer-input::placeholder {
+  color: #6b5a52;
+}
+
+/* ==========================================================================
+   9. CLEAN MINIMALIST STATS COUNTER PANEL
+   ========================================================================== */
+.stats-clean-layout {
+  border-bottom: 1px solid #f8f1ea; 
+}
+.numeric-counter-text {
+  color: #211611 !important; 
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  letter-spacing: -1px;
+}
+.stats-label-adjust {
+  font-size: 12.5px !important;
+  color: #8c7d74 !important; 
+  letter-spacing: 0.5px;
+}
+.content-stat-block {
+  transition: transform 0.3s ease;
+}
+.content-stat-block:hover {
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   10. PREMIUM AUTH CONTAINER INTERFACES (Outline Fix)
+   ========================================================================== */
+.auth-container-card {
+  border: 1px solid #f3eae0 !important;
+  box-shadow: 0 15px 45px rgba(45, 30, 24, 0.04) !important;
+}
+
+.form-pro-input {
+  border: 1px solid #dcd1c4 !important;
+  color: var(--text-dark) !important;
+  font-size: 14.5px !important;
+  background-color: #faf8f5 !important;
+  transition: all 0.25s ease !important;
+  outline: none !important; 
+  box-shadow: none !important; 
+}
+
+.form-pro-input:focus, 
+.form-control:focus, 
+.form-select:focus, 
+textarea:focus {
+  outline: none !important; 
+  border-color: var(--primary-orange) !important; 
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(242, 101, 34, 0.08) !important; 
+}
+
+/* ==========================================================================
+   11. PRODUCTION USER DASHBOARD METRICS
+   ========================================================================== */
+.shadow-xs {
+  box-shadow: 0 4px 18px rgba(160, 140, 130, 0.04) !important;
+}
+.industry-metric-card {
+  border: 1px solid #f4eae0 !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.industry-metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(45, 30, 24, 0.06) !important;
+}
+.metric-icon-frame {
+  width: 52px;
+  height: 52px;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.bg-blue-tint { background-color: #f0f4ff; }
+.text-primary-blue { color: #3b82f6 !important; }
+.bg-green-tint { background-color: #f0fdf4; }
+.bg-orange-tint { background-color: #fff6f0; }
+.gap-1\.5 { gap: 0.38rem !important; }
+
+/* ==========================================================================
+   12. USER BOOKINGS DIRECTORY LAYOUTS
+   ========================================================================== */
+.booking-pro-card {
+  border: 1px solid #f4eae0 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.booking-pro-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(45, 30, 24, 0.06) !important;
+  border-color: #e1d6cc !important;
+}
+.text-size-10 { font-size: 10px !important; }
+.text-size-11 { font-size: 11px !important; }
+.truncate-width-block { max-width: 65%; }
+.max-w-card { max-width: 480px; }
+.btn-size-adjust { font-size: 13.5px !important; }
+.text-warning-dark { color: #a16207 !important; }
+.bg-warning-subtle { background-color: #fef9c3 !important; }
+
+/* ==========================================================================
+   14. PANDIT COMPREHENSIVE BUSINESS TABLE MATRIX
+   ========================================================================== */
+.custom-dashboard-table {
+  border-collapse: separate !important;
+  border-spacing: 0 4px !important; 
+}
+.table-light-head tr th {
+  background-color: #faf8f5 !important;
+  border-bottom: 2px solid #f4eae0 !important;
+  color: #766860 !important;
+}
+.table-row-interaction {
+  transition: background-color 0.2s ease;
+}
+.table-row-interaction td {
+  border-top: 1px solid #fcfaf7 !important;
+  border-bottom: 1px solid #f5ebe2 !important;
+}
+.table-row-interaction:hover td {
+  background-color: #fffcf9 !important; 
+}
+.border-dashed {
+  border-style: dashed !important;
+  background-color: #faf9f6;
+  border-color: #dcd1c4 !important;
+}
+
+/* ==========================================================================
+   15. PANDIT BOOKINGS INTERACTIVE ACTIONS HUB
+   ========================================================================== */
+.btn-success-action {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+  border: 1px solid #22c55e !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease;
+}
+.btn-success-action:hover {
+  background-color: #16a34a !important;
+  border-color: #16a34a !important;
+}
+.btn-danger-action {
+  background-color: #fee2e2 !important;
+  color: #ef4444 !important;
+  border: 1px solid #fecaca !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease;
+}
+.btn-danger-action:hover {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+}
+.disabled-status-indicator {
+  opacity: 1 !important; 
+}
+
+/* ==========================================================================
+   16. PREMIUM VISUAL STYLE TOKENS & DYNAMIC SVG CHART ANIMATIONS
+   ========================================================================== */
+
+/* Theme Gradients */
+.saffron-gradient-bg {
+  background: linear-gradient(135deg, #ff9f43 0%, #f26522 100%) !important;
+}
+
+.saffron-glow-shadow {
+  box-shadow: 0 10px 30px rgba(242, 101, 34, 0.2) !important;
+}
+
+/* Glassmorphism Styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Interactive Dashboard Chart Grid System */
+.svg-chart-container {
+  position: relative;
+  overflow: visible;
+  transition: all 0.3s ease;
+}
+
+.chart-grid-line {
+  stroke: #f1e7dd;
+  stroke-dasharray: 4 4;
+}
+
+.chart-axis-line {
+  stroke: #dcd1c4;
+  stroke-width: 1;
+}
+
+/* Animated SVG path drawing curve */
+.chart-line-curve {
+  stroke: var(--primary-orange);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0px 6px 8px rgba(242, 101, 34, 0.25));
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawChartLine 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.chart-line-curve-secondary {
+  stroke: #3b82f6;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0px 6px 8px rgba(59, 130, 246, 0.2));
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawChartLine 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Interactive SVG Node circles */
+.chart-interactive-node {
+  fill: #ffffff;
+  stroke: var(--primary-orange);
+  stroke-width: 3;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.chart-interactive-node:hover {
+  fill: var(--primary-orange);
+  stroke: #ffffff;
+  stroke-width: 4;
+  r: 8 !important;
+  filter: drop-shadow(0 0 8px rgba(242, 101, 34, 0.7));
+}
+
+.chart-interactive-node-blue {
+  fill: #ffffff;
+  stroke: #3b82f6;
+  stroke-width: 3;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.chart-interactive-node-blue:hover {
+  fill: #3b82f6;
+  stroke: #ffffff;
+  stroke-width: 4;
+  r: 8 !important;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
+}
+
+/* Tooltip Card Overlays */
+.chart-dynamic-tooltip {
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+  border-radius: 8px;
+  background-color: #211611;
+  color: #ffffff;
+  font-size: 11.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Entrance Animations */
+.animate-fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  opacity: 0;
+  transform: scale(0.92);
+  animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* staggered animations */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* Pulse animation utility */
+.glowing-pulse-ring {
+  animation: pulseRing 2s infinite;
+}
+
+/* ==========================================================================
+   17. KEYFRAME DEFINITIONS
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes drawChartLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+/* Premium Auth Pages Icon and Toggle Utilities */
+.auth-input-wrapper {
+  position: relative;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a59585;
+  font-size: 15px;
+  pointer-events: none;
+  transition: color 0.25s ease;
+  z-index: 5;
+}
+
+.auth-input-wrapper:focus-within .auth-input-icon {
+  color: var(--primary-orange) !important;
+}
+
+.auth-eye-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a59585;
+  font-size: 16px;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.15s ease;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.auth-eye-toggle:hover {
+  color: var(--primary-orange) !important;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.auth-eye-toggle:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* Customized padding for input elements with inline icons */
+.form-control.auth-input-with-icon {
+  padding-left: 2.75rem !important;
+}
+
+.form-control.auth-input-with-toggle {
+  padding-right: 2.75rem !important;
+}
+
+.form-control.auth-input-with-both {
+  padding-left: 2.75rem !important;
+  padding-right: 2.75rem !important;
+}
+
+/* Premium Side-by-Side Role Select Cards */
+.role-select-card {
+  cursor: pointer;
+  background-color: #faf8f5 !important;
+  border: 1.5px solid #dcd1c4 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none;
+}
+
+.role-select-card:hover {
+  transform: translateY(-3px);
+  border-color: #a59585 !important;
+  box-shadow: 0 8px 20px rgba(45, 30, 24, 0.04) !important;
+}
+
+.role-select-card.active-role-card {
+  background-color: #fff6f0 !important;
+  border-color: var(--primary-orange) !important;
+  box-shadow: 0 8px 25px rgba(242, 101, 34, 0.1) !important;
+}
+
+.role-select-card.active-role-card .role-card-icon {
+  color: var(--primary-orange) !important;
+  transform: scale(1.1);
+}
+
+.role-select-card.active-role-card .role-card-title {
+  color: var(--primary-orange) !important;
+}
+
+.role-card-icon {
+  font-size: 26px;
+  color: #a59585;
+  transition: all 0.3s ease;
+  margin-bottom: 6px;
+}
+
+.role-card-title {
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+  transition: all 0.3s ease;
+}
+
+.role-card-desc {
+  font-size: 11px;
+  color: #8c7d70;
+  line-height: 1.35;
+  margin-bottom: 0;
+}
+
+
