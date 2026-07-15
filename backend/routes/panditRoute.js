@@ -4,9 +4,7 @@ const router = express.Router()
 
 const panditController =
 require('../controllers/panditController')
-
-const authMiddleware =
-require('../middleware/authMiddleware')
+const authmiddleware = require('../middleware/authmiddleware')
 const { route } = require('./bookingRoute')
 const upload = require('../middleware/upload')
 
