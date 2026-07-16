@@ -32,6 +32,16 @@ const Register = () => {
             return;
         }
 
+        if (!/^[6-9]\d{9}$/.test(contact)) {
+            toast.error("Invalid contact number. It should be a 10-digit number.");
+            return;
+        }
+
+        if (password.length < 6) {
+            toast.error("Password must be at least 6 characters long");
+            return;
+        }
+
         if (password !== confirm_password) {
             toast.error("Passwords do not match");
             return;

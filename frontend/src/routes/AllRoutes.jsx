@@ -5,6 +5,7 @@ import WithoutFooterLayout from './WithoutFooterLayout';
 import PanditLayout from '../Layouts/PanditLayout';
 import ErrorBoundary from '../components/layout/ErrorBoundary';
 import AdminProtectedRoute from './AdminProtectedRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 // PERFORMANCE OPTIMIZATION:
 // Lazy loading page routes using React.lazy() and Suspense.
@@ -60,7 +61,7 @@ const AllRoutes = () => {
                     <Route path='/recovery' element={<WithoutFooterLayout><Recovery /></WithoutFooterLayout>} />
                     <Route path='/reset-password' element={<WithoutFooterLayout><ResetPass /></WithoutFooterLayout>} />
 
-                    <Route path='/my-profile' element={<WithoutFooterLayout><UserProfile/></WithoutFooterLayout>}/>
+                    <Route path='/my-profile' element={<ProtectedRoute><WithoutFooterLayout><UserProfile/></WithoutFooterLayout></ProtectedRoute>}/>
 
                     <Route path='/about' element = {<Layout><AboutUs/></Layout>}/>
                     <Route path='/contact' element={<Layout><ContactUs/></Layout>}/>
@@ -71,20 +72,20 @@ const AllRoutes = () => {
                            2. USER & CUSTOMER PAGES (Full layout with custom Header & Footer enabled)
                            ========================================================================== */}
                     <Route path='/' element={<Layout><Home /></Layout>} />
-                    <Route path='/addPandit' element={<Layout><AddPandit /></Layout>} />
-                    <Route path='/pandit/:id' element={<Layout><PanditDetails /></Layout>} />
-                    <Route path='/booking/:id' element={<Layout><Booking /></Layout>} />
-                    <Route path='/my-bookings' element={<Layout><MyBookings /></Layout>} />
-                    <Route path='/dashboard' element={<Layout><UserDashboard /></Layout>} />
+                    <Route path='/addPandit' element={<ProtectedRoute><Layout><AddPandit /></Layout></ProtectedRoute>} />
+                    <Route path='/pandit/:id' element={<ProtectedRoute><Layout><PanditDetails /></Layout></ProtectedRoute>} />
+                    <Route path='/booking/:id' element={<ProtectedRoute><Layout><Booking /></Layout></ProtectedRoute>} />
+                    <Route path='/my-bookings' element={<ProtectedRoute><Layout><MyBookings /></Layout></ProtectedRoute>} />
+                    <Route path='/dashboard' element={<ProtectedRoute><Layout><UserDashboard /></Layout></ProtectedRoute>} />
                     <Route path='/admin' element={<AdminProtectedRoute><WithoutFooterLayout><AdminDashboard /></WithoutFooterLayout></AdminProtectedRoute>} />
 
                     {/* ==========================================================================
                            3. PANDIT PRIVATE MANAGEMENT SYSTEM (Nested Dashboard Engine - Clean Base Layout)
                            ========================================================================== */}
-                    <Route path='/pandit-dashboard' element={<PanditLayout />}>
-                        <Route index element={<PanditDashboard />} />
-                        <Route path='requests' element={<PanditBookings />} />
-                        <Route path='update-profile' element={<UpdateProfile />} />
+                    <Route path='/pandit-dashboard' element={ <PanditLayout />}>
+                        <Route index element={ <ProtectedRoute><PanditDashboard /></ProtectedRoute> } />
+                        <Route path='requests' element={<ProtectedRoute><PanditBookings /></ProtectedRoute>} />
+                        <Route path='update-profile' element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
                     </Route>
 
                 </Routes>
