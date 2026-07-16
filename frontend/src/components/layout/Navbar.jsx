@@ -6,7 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 
 
 const Navbar = () => {
-    const { isAuth, role, logout, token, name, user, login } = useContext(AuthContext);
+    const { isAuth, role, logout, token, name, user } = useContext(AuthContext);
     const [profileExists, setprofileExists] = useState(false);
     const [navImage, setNavImage] = useState(null); // Live tracker loop for local update synchronization
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Navbar = () => {
         if (!token) return;
         try {
             const endpoint = role === 'pandit' ? 'pandit/my-profile' : 'user/my-profile';
-            const response = await fetch(`http://localhost:5000/api/${endpoint}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/${endpoint}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const res = await response.json();
@@ -33,7 +33,7 @@ const Navbar = () => {
 
     const checkPanditProfile = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/pandit/check-profile', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/pandit/check-profile`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -45,31 +45,6 @@ const Navbar = () => {
         }
     };
 
-    const handleSwitchRole = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/api/user/switch-role', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            const res = await response.json();
-            if (response.ok) {
-                login(res.token, res.role, res.name);
-                if (res.role === 'pandit') {
-                    navigate('/pandit-dashboard');
-                } else {
-                    navigate('/');
-                }
-            } else {
-                console.error(res.msg);
-            }
-        } catch (error) {
-            console.error("Error switching profile role:", error);
-        }
-    };
-
     useEffect(() => {
         if (token) {
             getLiveNavProfile(); // Load real-time uploaded file structure
@@ -77,35 +52,18 @@ const Navbar = () => {
         }
     }, [role, token, location.pathname]); // Reloads automatically when navigating pages
 
+    // Sirf "Join as Pandit" dismissal track karna hai — koi switch-role feature nahi
     const [showPanditLink, setShowPanditLink] = useState(true);
-    const [showPanditSwitchBtn, setShowPanditSwitchBtn] = useState(true);
 
     const checkBannerDismissal = () => {
         const promptKey = 'hidePanditNavbarPill_' + (name ? name.replace(/\s+/g, '_') : 'guest');
         const dismissed = localStorage.getItem(promptKey);
-        if (dismissed === 'true') {
-            setShowPanditLink(false);
-        } else {
-            setShowPanditLink(true);
-        }
-    };
-
-    const checkSwitchBtnDismissal = () => {
-        const dismissed = localStorage.getItem('dismissedPanditSwitch');
-        if (dismissed === 'true') {
-            setShowPanditSwitchBtn(false);
-        } else {
-            setShowPanditSwitchBtn(true);
-        }
+        setShowPanditLink(dismissed !== 'true');
     };
 
     useEffect(() => {
         checkBannerDismissal();
-        checkSwitchBtnDismissal();
-        const handleStorageChange = () => {
-            checkBannerDismissal();
-            checkSwitchBtnDismissal();
-        };
+        const handleStorageChange = () => checkBannerDismissal();
         window.addEventListener('storage', handleStorageChange);
         return () => {
             window.removeEventListener('storage', handleStorageChange);
@@ -118,13 +76,14 @@ const Navbar = () => {
     };
 
     const socialItems = [
-      { label: 'Twitter', link: 'https://twitter.com' },
-      { label: 'GitHub', link: 'https://github.com' },
-      { label: 'LinkedIn', link: 'https://linkedin.com' }
+        { label: 'Twitter', link: 'https://twitter.com' },
+        { label: 'GitHub', link: 'https://github.com' },
+        { label: 'LinkedIn', link: 'https://linkedin.com' }
     ];
 
     const menuItems = [];
 
+    // "Join as Pandit" — sirf role 'user' ke liye, jiska pandit profile nahi hai, aur jisne dismiss nahi kiya — Home se PEHLE
     if (isAuth && role === 'user' && showPanditLink && !profileExists) {
         menuItems.push({ label: 'Join as Pandit', ariaLabel: 'Join as Pandit', link: '/addPandit' });
     }
@@ -144,6 +103,7 @@ const Navbar = () => {
         menuItems.push({ label: 'Dashboard', ariaLabel: 'Dashboard', link: '/dashboard' });
     }
 
+    // Pandit ke liye — sirf Dashboard/Requests/Update Profile, KOI switch-to-user option nahi
     if (isAuth && role === 'pandit') {
         if (profileExists) {
             menuItems.push({ label: 'Dashboard', ariaLabel: 'Dashboard', link: '/pandit-dashboard' });
@@ -160,30 +120,14 @@ const Navbar = () => {
 
     if (isAuth) {
         menuItems.push({ label: 'My Profile', ariaLabel: 'My Profile', link: '/my-profile' });
-        if (role === 'user' && profileExists) {
-            menuItems.push({ 
-                label: 'Switch to Pandit', 
-                ariaLabel: 'Switch to Pandit', 
-                link: '#', 
-                onClick: handleSwitchRole 
-            });
-        }
-        if (role === 'pandit') {
-            menuItems.push({ 
-                label: 'Switch to Yajman', 
-                ariaLabel: 'Switch to Yajman', 
-                link: '#', 
-                onClick: handleSwitchRole 
-            });
-        }
-        menuItems.push({ 
-            label: 'Logout', 
-            ariaLabel: 'Logout', 
-            link: '#', 
+        menuItems.push({
+            label: 'Logout',
+            ariaLabel: 'Logout',
+            link: '#',
             onClick: () => {
                 logout();
                 navigate('/');
-            } 
+            }
         });
     } else {
         menuItems.push({ label: 'Login', ariaLabel: 'Login', link: '/login' });
@@ -213,7 +157,6 @@ const Navbar = () => {
                         display: block !important;
                     }
                 }
-                /* StaggeredMenu toggle button header style override to ensure it matches BookMyPandit theme and is visible */
                 .mobile-navbar-wrapper .staggered-menu-header {
                     background: #ffffff !important;
                     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -269,16 +212,16 @@ const Navbar = () => {
                         <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
                             <ul className="navbar-nav align-items-center gap-2 gap-lg-3 mb-2 mb-lg-0 mt-2 mt-lg-0">
 
-                                {/* LOGGED IN CUSTOMER JOIN PILL (BEFORE HOME) */}
+                                {/* JOIN AS PANDIT PILL — HOME SE PEHLE, dismissible */}
                                 {isAuth && role === 'user' && !profileExists && showPanditLink && (
                                     <li className="nav-item me-lg-2 animate-scale-in">
-                                        <div 
-                                            className="btn btn-orange px-3 py-1.5 rounded-pill d-flex align-items-center gap-2" 
+                                        <div
+                                            className="btn btn-orange px-3 py-1.5 rounded-pill d-flex align-items-center gap-2"
                                             style={{ fontSize: '13px', cursor: 'pointer' }}
                                             onClick={() => navigate('/addPandit')}
                                         >
                                             Join as Pandit
-                                            <span 
+                                            <span
                                                 className="d-flex align-items-center justify-content-center rounded-circle bg-white text-orange"
                                                 style={{ width: '16px', height: '16px', padding: '2px', cursor: 'pointer' }}
                                                 onClick={(e) => {
@@ -316,17 +259,6 @@ const Navbar = () => {
                                 {/* LOGGED IN CUSTOMER LINKS */}
                                 {isAuth && role === 'user' && (
                                     <>
-                                        {profileExists && (
-                                            <li className="nav-item">
-                                                <button 
-                                                    className="nav-link btn btn-link fw-semibold px-2 border-0 bg-transparent text-primary-orange"
-                                                    onClick={handleSwitchRole}
-                                                    style={{ cursor: 'pointer', verticalAlign: 'middle', textDecoration: 'none' }}
-                                                >
-                                                    Switch to Pandit
-                                                </button>
-                                            </li>
-                                        )}
                                         <li className="nav-item">
                                             <NavLink className={`nav-link fw-semibold px-2 ${location.pathname === '/about' ? 'text-primary-orange' : 'text-dark'}`} to="/about">
                                                 About Us
@@ -359,7 +291,7 @@ const Navbar = () => {
                                     </li>
                                 )}
 
-                                {/* PANDIT LINKS */}
+                                {/* PANDIT LINKS — koi switch-to-user/yajman button nahi, sirf dashboard-related links */}
                                 {isAuth && role === 'pandit' && (
                                     <>
                                         {profileExists ? (
@@ -379,15 +311,6 @@ const Navbar = () => {
                                                         Update Profile
                                                     </NavLink>
                                                 </li>
-                                                <li className="nav-item">
-                                                    <button 
-                                                        className="nav-link btn btn-link fw-semibold px-2 border-0 bg-transparent text-primary-orange"
-                                                        onClick={handleSwitchRole}
-                                                        style={{ cursor: 'pointer', verticalAlign: 'middle', textDecoration: 'none' }}
-                                                    >
-                                                        Switch to Yajman
-                                                    </button>
-                                                </li>
                                             </>
                                         ) : (
                                             <li className="nav-item">
@@ -399,7 +322,7 @@ const Navbar = () => {
                                     </>
                                 )}
 
-                                {/* AUTH BUTTONS / DROPDOWN & ORIGINAL LOGOUT BUTTON SYSTEM */}
+                                {/* AUTH BUTTONS / DROPDOWN & LOGOUT */}
                                 {!isAuth ? (
                                     <>
                                         <li className="nav-item ms-lg-2">
@@ -416,7 +339,7 @@ const Navbar = () => {
                                 ) : (
                                     <li className="nav-item d-flex align-items-center gap-3 m-0 ms-lg-2 navbar-user-controls-block dropdown">
 
-                                        {/* Clickable Profile Circle Avatar Frame linking with Bootstrap menu behavior */}
+                                        {/* Clickable Profile Circle Avatar Frame */}
                                         <div
                                             className="d-flex align-items-center justify-content-center text-white fw-bold rounded-circle shadow-sm user-avatar-badge-circle"
                                             title={name || "User Profile"}
@@ -431,10 +354,9 @@ const Navbar = () => {
                                                 overflow: 'hidden'
                                             }}
                                         >
-                                            {/* 🍉 Pulling directly from live reactive server asset paths hook */}
                                             {navImage || user?.image ? (
                                                 <img
-                                                    src={`http://localhost:5000/assets/${navImage || user?.image}`}
+                                                    src={`${process.env.REACT_APP_API_URL}/assets/${navImage || user?.image}`}
                                                     alt="user profile picture"
                                                     className="w-100 h-100 object-cover"
                                                     onError={(e) => {
@@ -446,47 +368,12 @@ const Navbar = () => {
                                                 />
                                             ) : null}
 
-                                            {/* Text Initials Backtrack (Renders only if no binary image matches) */}
                                             <span style={{ display: (navImage || user?.image) ? 'none' : 'block' }}>
                                                 {getInitials(name)}
                                             </span>
                                         </div>
 
-                                        {/* 🍉 Dismissable Switch to Pandit button system */}
-                                        {role === 'user' && profileExists && showPanditSwitchBtn && (
-                                            <div className="d-flex align-items-center gap-2 bg-orange-tint border border-orange-light rounded-2 px-2 py-1">
-                                                <button
-                                                    className="btn btn-sm btn-orange py-1 px-2 rounded-2 fw-semibold"
-                                                    style={{ fontSize: '12px' }}
-                                                    onClick={handleSwitchRole}
-                                                >
-                                                    Switch to Pandit
-                                                </button>
-                                                <button
-                                                    className="btn btn-sm text-muted p-0 border-0 shadow-none lh-1 fs-5"
-                                                    onClick={() => {
-                                                        localStorage.setItem('dismissedPanditSwitch', 'true');
-                                                        setShowPanditSwitchBtn(false);
-                                                    }}
-                                                    style={{ cursor: 'pointer' }}
-                                                >
-                                                    &times;
-                                                </button>
-                                            </div>
-                                        )}
-                                        {role === 'pandit' && (
-                                            <div className="d-flex align-items-center gap-2 bg-orange-tint border border-orange-light rounded-2 px-2 py-1">
-                                                <button
-                                                    className="btn btn-sm btn-orange py-1 px-2 rounded-2 fw-semibold"
-                                                    style={{ fontSize: '12px' }}
-                                                    onClick={handleSwitchRole}
-                                                >
-                                                    Switch to Yajman
-                                                </button>
-                                            </div>
-                                        )}
-
-                                        {/* 🍉 YOUR ORIGINAL CLEAN LOGOUT DESIGN FORMULA (100% PRESERVED FROM YOUR SCREENSHOT) */}
+                                        {/* Logout */}
                                         <button
                                             className="btn btn-sm btn-outline-orange px-3 rounded-2"
                                             style={{ fontSize: '13px', padding: '6px 12px' }}
@@ -522,7 +409,6 @@ const Navbar = () => {
                     onMenuOpen={() => console.log('Menu opened')}
                     onMenuClose={() => console.log('Menu closed')}
                 />
-                {/* Spacer to push content down as StaggeredMenu toggle bar is fixed at top on mobile */}
                 <div style={{ height: '60px' }}></div>
             </div>
         </>

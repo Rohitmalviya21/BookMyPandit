@@ -29,7 +29,7 @@ const Recovery = () => {
 
         try {
             setLoading(true);
-            const data = await fetch("http://localhost:5000/api/auth/verify-otp", {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/verify-otp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

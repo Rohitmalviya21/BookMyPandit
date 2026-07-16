@@ -27,7 +27,7 @@ const UpdateProfile = () => {
     const getMyProfile = async () => {
         try {
             const response = await fetch(
-                'http://localhost:5000/api/pandit/my-profile',
+                `${process.env.REACT_APP_API_URL}/api/pandit/my-profile`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -73,7 +73,7 @@ const UpdateProfile = () => {
             }
 
             const response = await fetch(
-                'http://localhost:5000/api/pandit/update-profile',
+                `${process.env.REACT_APP_API_URL}/api/pandit/update-profile`,
                 {
                     method: 'PUT',
                     headers: {
@@ -127,7 +127,7 @@ const UpdateProfile = () => {
                                     <div className="position-relative p-1 rounded-circle border border-2 border-dashed" style={{ borderColor: 'var(--primary-orange)', width: '110px', height: '110px' }}>
                                         <img
                                            
-                                            src={`http://localhost:5000/assets/${form.image}`}
+                                            src={`${process.env.REACT_APP_API_URL}/assets/${form.image}`}
                                             alt="profile live review"
                                             className="w-100 h-100 rounded-circle object-cover"
                                             onError={(e) => {

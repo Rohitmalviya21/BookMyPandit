@@ -19,7 +19,7 @@ const PanditCard = React.memo(({ pandit }) => {
                 <img
                     src={
                         pandit?.image
-                            ? `http://localhost:5000/assets/${pandit.image}`
+                            ? `${process.env.REACT_APP_API_URL}/assets/${pandit.image}`
                             : defaultImg
                     }
                     alt="pandit"

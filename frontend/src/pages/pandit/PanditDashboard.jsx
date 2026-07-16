@@ -40,7 +40,7 @@ const PanditDashboard = () => {
 
     const getDashBoardStats = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/booking/pandit-dashboard', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/pandit-dashboard`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const res = await data.json();
@@ -52,7 +52,7 @@ const PanditDashboard = () => {
 
     const getRecentBookings = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/booking/recent-bookings', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/recent-bookings`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const res = await data.json();

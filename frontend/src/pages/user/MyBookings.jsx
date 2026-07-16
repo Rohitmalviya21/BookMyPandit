@@ -26,7 +26,7 @@ const MyBookings = () => {
         e.preventDefault();
         setReviewLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/review/create', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/review/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const MyBookings = () => {
 
     const getMyBookings = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/booking/my-bookings', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/my-bookings`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const res = await data.json();
@@ -71,7 +71,7 @@ const MyBookings = () => {
         if (!confirmCancel) return;
 
         try {
-            const data = await fetch(`http://localhost:5000/api/booking/cancel/${id}`, {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/cancel/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

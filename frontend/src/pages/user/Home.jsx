@@ -17,7 +17,7 @@ const Home = () => {
     // Why modern companies use it: Standard best practice to optimize child components dependencies.
     const getAllPandits = useCallback(async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/pandit/all');
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/pandit/all`);
             const res = await data.json();
             setPandits(res.pandits || []);
         } catch (error) {
@@ -33,7 +33,7 @@ const Home = () => {
     // Why modern companies use it: To avoid unnecessary allocation and child render cycles.
     const searchPandits = useCallback(async () => {
         try {
-            const data = await fetch(`http://localhost:5000/api/pandit/search?search=${search}`);
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/pandit/search?search=${search}`);
             const res = await data.json();
             console.log("API RESPONSE =>", res);
             setPandits(res.pandits || []);

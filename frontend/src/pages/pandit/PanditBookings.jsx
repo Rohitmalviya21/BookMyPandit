@@ -9,7 +9,7 @@ const PanditBookings = () => {
 
     const getPanditBookings = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/booking/pandit-bookings', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/pandit-bookings`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const res = await data.json();
@@ -21,7 +21,7 @@ const PanditBookings = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            const data = await fetch(`http://localhost:5000/api/booking/status/${id}`, {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/status/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const PanditBookings = () => {
     };
     const completeBooking = async (id) => {
         try {
-            const data = await fetch(`http://localhost:5000/api/booking/complete/${id}`, {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/complete/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

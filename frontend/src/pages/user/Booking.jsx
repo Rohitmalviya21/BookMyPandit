@@ -29,7 +29,7 @@ const Booking = () => {
     useEffect(() => {
         const fetchBookedDates = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/booking/booked-dates/${id}`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/booked-dates/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setBookedDates(data.bookedDates || []);
@@ -104,7 +104,7 @@ const Booking = () => {
         }
 
         try {
-            const data = await fetch('http://localhost:5000/api/booking/create', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

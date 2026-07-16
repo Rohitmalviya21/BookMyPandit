@@ -7,7 +7,7 @@ const AllPandits = () => {
 
     const getPandits = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/pandit/all');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/pandit/all`);
             if (response.ok) {
                 const data = await response.json();
                 setPandits(data.pandits || []);

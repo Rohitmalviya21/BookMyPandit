@@ -57,7 +57,7 @@ const UserDashboard = () => {
 
     const getUserDashboardStatus = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/booking/user-dashboard', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/user-dashboard`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

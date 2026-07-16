@@ -15,7 +15,7 @@ const AdminDashboard = () => {
 
     const fetchStats = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/admin/stats', {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/stats`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
 
     const fetchPandits = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/admin/pandits', {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/pandits`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
     const fetchBookings = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/admin/bookings', {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/bookings`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -60,7 +60,7 @@ const AdminDashboard = () => {
 
     const fetchContacts = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/admin/contact-messages', {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/contact-messages`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -77,7 +77,7 @@ const AdminDashboard = () => {
         if (!confirmDelete) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/admin/pandits/${id}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/pandits/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -97,7 +97,7 @@ const AdminDashboard = () => {
 
     const handleResolveContact = async (id) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/admin/contact-messages/${id}/resolve`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/contact-messages/${id}/resolve`, {
                 method: 'PUT',
                 headers: { Authorization: `Bearer ${token}` }
             });

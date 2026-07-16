@@ -21,7 +21,7 @@ const PanditDetails = () => {
 
     const getSinglePandit = async () => {
         try {
-            const data = await fetch(`http://localhost:5000/api/pandit/${id}`);
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/pandit/${id}`);
             const res = await data.json();
             setPandit(res.pandit);
         } catch (error) {
@@ -31,7 +31,7 @@ const PanditDetails = () => {
 
     const getReviews = async () => {
         try {
-            const data = await fetch(`http://localhost:5000/api/review/pandit/${id}`);
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/review/pandit/${id}`);
             const res = await data.json();
             setReviews(res.reviews || []);
         } catch (error) {
@@ -41,7 +41,7 @@ const PanditDetails = () => {
 
     const getBookedDates = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/booking/booked-dates/${id}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/booked-dates/${id}`);
             if (response.ok) {
                 const data = await response.json();
                 setBookedDates(data.bookedDates || []);
@@ -106,7 +106,7 @@ const PanditDetails = () => {
                                     <img
                                         src={
                                             pandit.image
-                                                ? `http://localhost:5000/assets/${pandit.image}`
+                                                ? `${process.env.REACT_APP_API_URL}/assets/${pandit.image}`
                                                 : fallbackImg
                                         } // Backend Multer Route API URL
                                         alt={pandit.userId?.name || "Pandit Ji"}

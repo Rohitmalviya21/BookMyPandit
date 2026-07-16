@@ -45,7 +45,7 @@ const UserProfile = () => {
 
         setPassLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/user/change-password', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/change-password`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const UserProfile = () => {
 
     const checkPanditProfile = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/pandit/check-profile', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/pandit/check-profile`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -86,7 +86,7 @@ const UserProfile = () => {
 
     // const handleSwitchRole = async () => {
     //     try {
-    //         const response = await fetch('http://localhost:5000/api/user/switch-role', {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/switch-role`, {
     //             method: 'PUT',
     //             headers: {
     //                 'Authorization': `Bearer ${token}`,
@@ -131,7 +131,7 @@ const UserProfile = () => {
 
     const getMyProfile = async () => {
         try {
-            const data = await fetch('http://localhost:5000/api/user/my-profile', {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/api/user/my-profile`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -201,7 +201,7 @@ const UserProfile = () => {
                 data.append('image', image);
             }
 
-            const response = await fetch('http://localhost:5000/api/user/update-profile', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/update-profile`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -267,7 +267,7 @@ const UserProfile = () => {
                                         src={
                                             previewUrl
                                                 ? previewUrl
-                                                : (form.image ? `http://localhost:5000/assets/${form.image}` : fallbackImg)
+                                                : (form.image ? `${process.env.REACT_APP_API_URL}/assets/${form.image}` : fallbackImg)
                                         }
                                         alt="Yajman preview"
                                         className="w-100 h-100 rounded-circle object-cover"
