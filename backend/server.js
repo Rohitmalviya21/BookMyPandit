@@ -40,7 +40,7 @@ const path = require('path')
 const cors = require('cors')
 
 const corsoptions = {
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: ["http://localhost:3000", "http://localhost:3001", "https://book-my-pandit-nine.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }
@@ -50,14 +50,14 @@ app.use(cors(corsoptions))
 // middleware
 app.use(express.json())
 
-app.use('/assets',express.static(path.join(__dirname,'assets')))
+app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
 app.use('/api/auth', authRoute)
-app.use('/api/pandit',panditRoute)
-app.use('/api/booking',bookingRoute)
-app.use('/api/upload',uploadRoute)
-app.use('/api/user',UserRoute)
-app.use('/api/contact',contactRoute)
+app.use('/api/pandit', panditRoute)
+app.use('/api/booking', bookingRoute)
+app.use('/api/upload', uploadRoute)
+app.use('/api/user', UserRoute)
+app.use('/api/contact', contactRoute)
 app.use('/api/admin', adminRoute)
 app.use('/api/review', reviewRoute)
 
